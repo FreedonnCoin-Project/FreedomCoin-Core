@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=FreedomCoin Core
+Comment=FreedomCoin P2P Cryptocurrency
+Comment[fr]=FreedomCoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=FreedomCoin, eşten eşe kriptografik sanal para birimi
+Exec=freedomcoin-qt %u
+Terminal=false
+Type=Application
+Icon=freedomcoin128
+MimeType=x-scheme-handler/freedomcoin;
+Categories=Office;Finance;
+StartupWMClass=FreedomCoin-qt

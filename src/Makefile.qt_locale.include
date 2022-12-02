@@ -1,0 +1,12 @@
+QT_TS = \
+  qt/locale/freedomcoin_de.ts \
+  qt/locale/freedomcoin_en.ts \
+  qt/locale/freedomcoin_en_US.ts \
+  qt/locale/freedomcoin_es.ts \
+  qt/locale/freedomcoin_fr_FR.ts \
+  qt/locale/freedomcoin_hr_HR.ts \
+  qt/locale/freedomcoin_it.ts \
+  qt/locale/freedomcoin_ko_KR.ts \
+  qt/locale/freedomcoin_nl.ts \
+  qt/locale/freedomcoin_pl.ts \
+  qt/locale/freedomcoin_ru.ts

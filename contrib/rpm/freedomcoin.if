@@ -1,0 +1,157 @@
+
+## <summary>policy for freedomcoin</summary>
+
+
+########################################
+## <summary>
+##	Transition to freedomcoin.
+## </summary>
+## <param name="domain">
+## <summary>
+##	Domain allowed to transition.
+## </summary>
+## </param>
+#
+interface(`freedomcoin_domtrans',`
+	gen_require(`
+		type freedomcoin_t, freedomcoin_exec_t;
+	')
+
+	corecmd_search_bin($1)
+	domtrans_pattern($1, freedomcoin_exec_t, freedomcoin_t)
+')
+
+
+########################################
+## <summary>
+##	Execute freedomcoin server in the freedomcoin domain.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`freedomcoin_initrc_domtrans',`
+	gen_require(`
+		type freedomcoin_initrc_exec_t;
+	')
+
+	init_labeled_script_domtrans($1, freedomcoin_initrc_exec_t)
+')
+
+
+########################################
+## <summary>
+##	Search freedomcoin lib directories.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`freedomcoin_search_lib',`
+	gen_require(`
+		type freedomcoin_var_lib_t;
+	')
+
+	allow $1 freedomcoin_var_lib_t:dir search_dir_perms;
+	files_search_var_lib($1)
+')
+
+########################################
+## <summary>
+##	Read freedomcoin lib files.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`freedomcoin_read_lib_files',`
+	gen_require(`
+		type freedomcoin_var_lib_t;
+	')
+
+	files_search_var_lib($1)
+	read_files_pattern($1, freedomcoin_var_lib_t, freedomcoin_var_lib_t)
+')
+
+########################################
+## <summary>
+##	Manage freedomcoin lib files.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`freedomcoin_manage_lib_files',`
+	gen_require(`
+		type freedomcoin_var_lib_t;
+	')
+
+	files_search_var_lib($1)
+	manage_files_pattern($1, freedomcoin_var_lib_t, freedomcoin_var_lib_t)
+')
+
+########################################
+## <summary>
+##	Manage freedomcoin lib directories.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`freedomcoin_manage_lib_dirs',`
+	gen_require(`
+		type freedomcoin_var_lib_t;
+	')
+
+	files_search_var_lib($1)
+	manage_dirs_pattern($1, freedomcoin_var_lib_t, freedomcoin_var_lib_t)
+')
+
+
+########################################
+## <summary>
+##	All of the rules required to administrate
+##	a freedomcoin environment
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+## <param name="role">
+##	<summary>
+##	Role allowed access.
+##	</summary>
+## </param>
+## <rolecap/>
+#
+interface(`freedomcoin_admin',`
+	gen_require(`
+		type freedomcoin_t;
+		type freedomcoin_initrc_exec_t;
+		type freedomcoin_var_lib_t;
+	')
+
+	allow $1 freedomcoin_t:process { ptrace signal_perms };
+	ps_process_pattern($1, freedomcoin_t)
+
+	freedomcoin_initrc_domtrans($1)
+	domain_system_change_exemption($1)
+	role_transition $2 freedomcoin_initrc_exec_t system_r;
+	allow $2 system_r;
+
+	files_search_var_lib($1)
+	admin_pattern($1, freedomcoin_var_lib_t)
+
+')
+

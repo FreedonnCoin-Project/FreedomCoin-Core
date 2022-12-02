@@ -1,0 +1,3 @@
+usr/local/bin/freedomcoind usr/bin
+usr/local/bin/freedomcoin-cli usr/bin
+debian/examples/freedomcoin.conf etc/freedomcoin

@@ -1,0 +1,705 @@
+# Copyright (c) 2013-2016 The Bitcoin Core developers
+# Distributed under the MIT software license, see the accompanying
+# file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
+bin_PROGRAMS += qt/freedomcoin-qt
+EXTRA_LIBRARIES += qt/libbitcoinqt.a
+
+# freedomcoin qt core #
+include Makefile.qt_locale.include
+
+QT_FORMS_UI = \
+  qt/forms/addressbookpage.ui \
+  qt/forms/askpassphrasedialog.ui \
+  qt/forms/coincontroldialog.ui \
+  qt/forms/editaddressdialog.ui \
+  qt/forms/helpmessagedialog.ui \
+  qt/forms/intro.ui \
+  qt/forms/openuridialog.ui \
+  qt/forms/rpcconsole.ui \
+  qt/freedomcoin/forms/loadingdialog.ui \
+  qt/freedomcoin/forms/snackbar.ui \
+  qt/freedomcoin/forms/navmenuwidget.ui \
+  qt/freedomcoin/forms/lockunlock.ui \
+  qt/freedomcoin/forms/expandablebutton.ui \
+  qt/freedomcoin/forms/receivedialog.ui \
+  qt/freedomcoin/forms/balancebubble.ui \
+  qt/freedomcoin/forms/topbar.ui \
+  qt/freedomcoin/forms/txrow.ui \
+  qt/freedomcoin/forms/dashboardwidget.ui \
+  qt/freedomcoin/forms/addresslabelrow.ui \
+  qt/freedomcoin/forms/contactdropdownrow.ui \
+  qt/freedomcoin/forms/mninfodialog.ui \
+  qt/freedomcoin/forms/optionbutton.ui \
+  qt/freedomcoin/forms/patriotnodewizarddialog.ui \
+  qt/freedomcoin/forms/mnrow.ui \
+  qt/freedomcoin/forms/patriotnodeswidget.ui \
+  qt/freedomcoin/forms/myaddressrow.ui \
+  qt/freedomcoin/forms/csrow.ui \
+  qt/freedomcoin/forms/sendmemodialog.ui \
+  qt/freedomcoin/forms/sendchangeaddressdialog.ui \
+  qt/freedomcoin/forms/sendconfirmdialog.ui \
+  qt/freedomcoin/forms/sendcustomfeedialog.ui \
+  qt/freedomcoin/forms/sendmultirow.ui \
+  qt/freedomcoin/forms/send.ui \
+  qt/freedomcoin/forms/addnewaddressdialog.ui \
+  qt/freedomcoin/forms/addnewcontactdialog.ui \
+  qt/freedomcoin/forms/requestdialog.ui \
+  qt/freedomcoin/forms/receivewidget.ui \
+  qt/freedomcoin/forms/tooltipmenu.ui \
+  qt/freedomcoin/forms/addresseswidget.ui \
+  qt/freedomcoin/forms/defaultdialog.ui \
+  qt/freedomcoin/forms/coldstakingwidget.ui \
+  qt/freedomcoin/settings/forms/settingsbackupwallet.ui \
+  qt/freedomcoin/settings/forms/settingsexportcsv.ui \
+  qt/freedomcoin/settings/forms/settingsbittoolwidget.ui \
+  qt/freedomcoin/settings/forms/settingsconsolewidget.ui \
+  qt/freedomcoin/settings/forms/settingsdisplayoptionswidget.ui \
+  qt/freedomcoin/settings/forms/settingsfaqwidget.ui \
+  qt/freedomcoin/settings/forms/settingsinformationwidget.ui \
+  qt/freedomcoin/settings/forms/settingsmainoptionswidget.ui \
+  qt/freedomcoin/settings/forms/settingssignmessagewidgets.ui \
+  qt/freedomcoin/settings/forms/settingswalletoptionswidget.ui \
+  qt/freedomcoin/settings/forms/settingswalletrepairwidget.ui \
+  qt/freedomcoin/settings/forms/settingswidget.ui \
+  qt/freedomcoin/forms/welcomecontentwidget.ui \
+  qt/freedomcoin/forms/splash.ui
+
+QT_MOC_CPP = \
+  qt/moc_addressbookpage.cpp \
+  qt/moc_addresstablemodel.cpp \
+  qt/moc_askpassphrasedialog.cpp \
+  qt/moc_bantablemodel.cpp \
+  qt/moc_bitcoinaddressvalidator.cpp \
+  qt/freedomcoin/moc_freedomcoingui.cpp \
+  qt/moc_bitcoinunits.cpp \
+  qt/moc_clientmodel.cpp \
+  qt/moc_coincontroldialog.cpp \
+  qt/moc_coincontroltreewidget.cpp \
+  qt/moc_csvmodelwriter.cpp \
+  qt/moc_editaddressdialog.cpp \
+  qt/moc_guiutil.cpp \
+  qt/moc_intro.cpp \
+  qt/moc_macdockiconhandler.cpp \
+  qt/moc_macnotificationhandler.cpp \
+  qt/moc_notificator.cpp \
+  qt/moc_openuridialog.cpp \
+  qt/moc_optionsmodel.cpp \
+  qt/moc_peertablemodel.cpp \
+  qt/moc_paymentserver.cpp \
+  qt/moc_qvalidatedlineedit.cpp \
+  qt/moc_qvaluecombobox.cpp \
+  qt/moc_recentrequeststablemodel.cpp \
+  qt/moc_rpcconsole.cpp \
+  qt/moc_rpcexecutor.cpp \
+  qt/moc_trafficgraphwidget.cpp \
+  qt/moc_transactionfilterproxy.cpp \
+  qt/moc_transactiontablemodel.cpp \
+  qt/moc_utilitydialog.cpp \
+  qt/moc_walletmodel.cpp \
+  qt/freedomcoin/moc_loadingdialog.cpp \
+  qt/freedomcoin/moc_pwidget.cpp \
+  qt/freedomcoin/moc_focuseddialog.cpp \
+  qt/freedomcoin/moc_snackbar.cpp \
+  qt/freedomcoin/moc_navmenuwidget.cpp \
+  qt/freedomcoin/moc_lockunlock.cpp \
+  qt/freedomcoin/moc_expandablebutton.cpp \
+  qt/freedomcoin/moc_furabstractlistitemdelegate.cpp \
+  qt/freedomcoin/moc_receivedialog.cpp \
+  qt/freedomcoin/moc_pfborderimage.cpp \
+  qt/freedomcoin/moc_topbar.cpp \
+  qt/freedomcoin/moc_txrow.cpp \
+  qt/freedomcoin/moc_dashboardwidget.cpp \
+  qt/freedomcoin/moc_addresslabelrow.cpp \
+  qt/freedomcoin/moc_contactdropdownrow.cpp \
+  qt/freedomcoin/moc_mninfodialog.cpp \
+  qt/freedomcoin/moc_optionbutton.cpp \
+  qt/freedomcoin/moc_coldstakingmodel.cpp \
+  qt/freedomcoin/moc_mnmodel.cpp \
+  qt/freedomcoin/moc_patriotnodewizarddialog.cpp \
+  qt/freedomcoin/moc_mnrow.cpp \
+  qt/freedomcoin/moc_patriotnodeswidget.cpp \
+  qt/freedomcoin/moc_myaddressrow.cpp \
+  qt/freedomcoin/moc_csrow.cpp \
+  qt/freedomcoin/moc_contactsdropdown.cpp \
+  qt/freedomcoin/moc_sendchangeaddressdialog.cpp \
+  qt/freedomcoin/moc_sendconfirmdialog.cpp \
+  qt/freedomcoin/moc_sendcustomfeedialog.cpp \
+  qt/freedomcoin/moc_sendmemodialog.cpp \
+  qt/freedomcoin/moc_sendmultirow.cpp \
+  qt/freedomcoin/moc_send.cpp \
+  qt/freedomcoin/moc_addnewaddressdialog.cpp \
+  qt/freedomcoin/moc_addnewcontactdialog.cpp \
+  qt/freedomcoin/moc_requestdialog.cpp \
+  qt/freedomcoin/moc_receivewidget.cpp \
+  qt/freedomcoin/moc_tooltipmenu.cpp \
+  qt/freedomcoin/moc_addresseswidget.cpp \
+  qt/freedomcoin/moc_defaultdialog.cpp \
+  qt/freedomcoin/moc_coldstakingwidget.cpp \
+  qt/freedomcoin/settings/moc_settingsbackupwallet.cpp \
+  qt/freedomcoin/settings/moc_settingsexportcsv.cpp \
+  qt/freedomcoin/settings/moc_settingsbittoolwidget.cpp \
+  qt/freedomcoin/settings/moc_settingsconsolewidget.cpp \
+  qt/freedomcoin/settings/moc_settingsdisplayoptionswidget.cpp \
+  qt/freedomcoin/settings/moc_settingsfaqwidget.cpp \
+  qt/freedomcoin/settings/moc_settingsinformationwidget.cpp \
+  qt/freedomcoin/settings/moc_settingsmainoptionswidget.cpp \
+  qt/freedomcoin/settings/moc_settingssignmessagewidgets.cpp \
+  qt/freedomcoin/settings/moc_settingswalletoptionswidget.cpp \
+  qt/freedomcoin/settings/moc_settingswalletrepairwidget.cpp \
+  qt/freedomcoin/settings/moc_settingswidget.cpp \
+  qt/freedomcoin/moc_welcomecontentwidget.cpp \
+  qt/freedomcoin/moc_splash.cpp
+
+BITCOIN_MM = \
+  qt/macdockiconhandler.mm \
+  qt/macnotificationhandler.mm
+
+QT_MOC = \
+  qt/freedomcoin.moc \
+  qt/intro.moc
+
+QT_QRC_CPP = qt/qrc_freedomcoin.cpp
+QT_QRC = qt/freedomcoin.qrc
+QT_QRC_LOCALE_CPP = qt/qrc_freedomcoin_locale.cpp
+QT_QRC_LOCALE = qt/freedomcoin_locale.qrc
+
+BITCOIN_QT_H = \
+  qt/addressbookpage.h \
+  qt/addresstablemodel.h \
+  qt/askpassphrasedialog.h \
+  qt/bantablemodel.h \
+  qt/bitcoinaddressvalidator.h \
+  qt/freedomcoin/freedomcoingui.h \
+  qt/bitcoinunits.h \
+  qt/clientmodel.h \
+  qt/coincontroldialog.h \
+  qt/coincontroltreewidget.h \
+  qt/csvmodelwriter.h \
+  qt/editaddressdialog.h \
+  qt/guiconstants.h \
+  qt/guiutil.h \
+  qt/intro.h \
+  qt/macdockiconhandler.h \
+  qt/macnotificationhandler.h \
+  qt/networkstyle.h \
+  qt/notificator.h \
+  qt/openuridialog.h \
+  qt/optionsmodel.h \
+  qt/paymentserver.h \
+  qt/peertablemodel.h \
+  qt/platformstyle.h \
+  qt/qvalidatedlineedit.h \
+  qt/qvaluecombobox.h \
+  qt/recentrequeststablemodel.h \
+  qt/rpcconsole.h \
+  qt/rpcexecutor.h \
+  qt/trafficgraphwidget.h \
+  qt/transactionfilterproxy.h \
+  qt/transactionrecord.h \
+  qt/transactiontablemodel.h \
+  qt/utilitydialog.h \
+  qt/walletmodel.h \
+  qt/walletmodeltransaction.h \
+  qt/freedomcoin/prunnable.h \
+  qt/freedomcoin/pfborderimage.h \
+  qt/freedomcoin/loadingdialog.h \
+  qt/winshutdownmonitor.h \
+  qt/freedomcoin/pwidget.h \
+  qt/freedomcoin/focuseddialog.h \
+  qt/freedomcoin/guitransactionsutils.h \
+  qt/freedomcoin/snackbar.h \
+  qt/freedomcoin/navmenuwidget.h \
+  qt/freedomcoin/lockunlock.h \
+  qt/freedomcoin/receivedialog.h \
+  qt/freedomcoin/furlistrow.h \
+  qt/freedomcoin/furabstractlistitemdelegate.h \
+  qt/freedomcoin/txviewholder.h \
+  qt/freedomcoin/qtutils.h \
+  qt/freedomcoin/expandablebutton.h \
+  qt/freedomcoin/balancebubble.h \
+  qt/freedomcoin/topbar.h \
+  qt/freedomcoin/txrow.h \
+  qt/freedomcoin/addressholder.h \
+  qt/freedomcoin/addressfilterproxymodel.h \
+  qt/freedomcoin/dashboardwidget.h \
+  qt/freedomcoin/addresslabelrow.h \
+  qt/freedomcoin/contactdropdownrow.h \
+  qt/freedomcoin/mninfodialog.h \
+  qt/freedomcoin/optionbutton.h \
+  qt/freedomcoin/coldstakingmodel.h \
+  qt/freedomcoin/mnmodel.h \
+  qt/freedomcoin/patriotnodewizarddialog.h \
+  qt/freedomcoin/mnrow.h \
+  qt/freedomcoin/patriotnodeswidget.h \
+  qt/freedomcoin/myaddressrow.h \
+  qt/freedomcoin/csrow.h \
+  qt/freedomcoin/contactsdropdown.h \
+  qt/freedomcoin/sendchangeaddressdialog.h \
+  qt/freedomcoin/sendconfirmdialog.h \
+  qt/freedomcoin/sendcustomfeedialog.h \
+  qt/freedomcoin/sendmemodialog.h \
+  qt/freedomcoin/sendmultirow.h \
+  qt/freedomcoin/send.h \
+  qt/freedomcoin/addnewaddressdialog.h \
+  qt/freedomcoin/addnewcontactdialog.h \
+  qt/freedomcoin/requestdialog.h \
+  qt/freedomcoin/receivewidget.h \
+  qt/freedomcoin/tooltipmenu.h \
+  qt/freedomcoin/addresseswidget.h \
+  qt/freedomcoin/defaultdialog.h \
+  qt/freedomcoin/coldstakingwidget.h \
+  qt/freedomcoin/settings/settingsbackupwallet.h \
+  qt/freedomcoin/settings/settingsexportcsv.h \
+  qt/freedomcoin/settings/settingsbittoolwidget.h \
+  qt/freedomcoin/settings/settingsconsolewidget.h \
+  qt/freedomcoin/settings/settingsdisplayoptionswidget.h \
+  qt/freedomcoin/settings/settingsfaqwidget.h \
+  qt/freedomcoin/settings/settingsinformationwidget.h \
+  qt/freedomcoin/settings/settingsmainoptionswidget.h \
+  qt/freedomcoin/settings/settingssignmessagewidgets.h \
+  qt/freedomcoin/settings/settingswalletoptionswidget.h \
+  qt/freedomcoin/settings/settingswalletrepairwidget.h \
+  qt/freedomcoin/settings/settingswidget.h \
+  qt/freedomcoin/welcomecontentwidget.h \
+  qt/freedomcoin/splash.h
+
+RES_ICONS = \
+  qt/res/icons/bitcoin.ico \
+  qt/res/icons/bitcoin.png \
+  qt/res/icons/bitcoin_testnet.ico \
+  qt/res/icons/bitcoin_testnet.png \
+  qt/res/icons/bitcoin_regtest.png \
+  qt/res/icons/lock_closed.png \
+  qt/res/icons/lock_open.png \
+  qt/res/icons/overview.png \
+  qt/res/icons/ic-transaction-received.svg \
+  qt/res/icons/ic-transaction-mint.svg \
+  qt/res/icons/ic-transaction-sent.svg \
+  qt/res/icons/ic-transaction-staked.svg \
+  qt/freedomcoin/res/img/bg-dashboard-banner.png \
+  qt/freedomcoin/res/img/bg-multi-number-dark.svg \
+  qt/freedomcoin/res/img/ic-check-locked.svg \
+  qt/freedomcoin/res/img/ic-nav-address.svg \
+  qt/freedomcoin/res/img/ic-update.svg \
+  qt/freedomcoin/res/img/bg-multi-number.svg \
+  qt/freedomcoin/res/img/ic-check-mint-off.svg \
+  qt/freedomcoin/res/img/ic-nav-cold-staking.svg \
+  qt/freedomcoin/res/img/ic-nav-cold-staking-active.svg \
+  qt/freedomcoin/res/img/ic-nav-dashboard-active.svg \
+  qt/freedomcoin/res/img/ic-wallet-status-locked.svg \
+  qt/freedomcoin/res/img/bg-splash.svg \
+  qt/freedomcoin/res/img/bg-splash.png \
+  qt/freedomcoin/res/img/ic-check-mint.svg \
+  qt/freedomcoin/res/img/ic-nav-dashboard-hover.svg \
+  qt/freedomcoin/res/img/ic-wallet-status-staking.svg \
+  qt/freedomcoin/res/img/ic-check-peers-off.svg \
+  qt/freedomcoin/res/img/ic-nav-dashboard.svg \
+  qt/freedomcoin/res/img/ic-wallet-status-unlocked.svg \
+  qt/freedomcoin/res/img/ic-check-peers.svg \
+  qt/freedomcoin/res/img/ic-nav-master-active.svg \
+  qt/freedomcoin/res/img/ic-watch-password-white.svg \
+  qt/freedomcoin/res/img/bg-welcome-container.jpg \
+  qt/freedomcoin/res/img/bg-welcome-container.png \
+  qt/freedomcoin/res/img/bg-welcome-container.svg \
+  qt/freedomcoin/res/img/bg-welcome-container@2x.png \
+  qt/freedomcoin/res/img/bg-welcome-container@3x.png \
+  qt/freedomcoin/res/img/ic-check-staking-off.svg \
+  qt/freedomcoin/res/img/ic-nav-master-hover.svg \
+  qt/freedomcoin/res/img/ic-watch-password.svg \
+  qt/freedomcoin/res/img/bg-welcome.jpg \
+  qt/freedomcoin/res/img/bg-welcome.svg \
+  qt/freedomcoin/res/img/bg-welcome@2x.jpg \
+  qt/freedomcoin/res/img/bg-welcome@3x.jpg \
+  qt/freedomcoin/res/img/bg-welcome.png \
+  qt/freedomcoin/res/img/ic-check-staking.svg \
+  qt/freedomcoin/res/img/ic-nav-master.svg \
+  qt/freedomcoin/res/img/img-dashboard-banner.jpg \
+  qt/freedomcoin/res/img/btn-radio-active.svg \
+  qt/freedomcoin/res/img/ic-check-sync-off.svg \
+  qt/freedomcoin/res/img/ic-nav-privacy-active.svg \
+  qt/freedomcoin/res/img/img-empty-contacts.svg \
+  qt/freedomcoin/res/img/btn-radio-off.svg \
+  qt/freedomcoin/res/img/ic-check-sync.png \
+  qt/freedomcoin/res/img/ic-nav-privacy-hover.svg \
+  qt/freedomcoin/res/img/img-empty-dark-contacts.svg \
+  qt/freedomcoin/res/img/ic-contact-arrow-down.svg \
+  qt/freedomcoin/res/img/ic-contact-arrow-down-white.svg \
+  qt/freedomcoin/res/img/ic-check-sync.svg \
+  qt/freedomcoin/res/img/ic-check-faq.svg \
+  qt/freedomcoin/res/img/ic-nav-privacy.svg \
+  qt/freedomcoin/res/img/img-empty-dark-error.svg \
+  qt/freedomcoin/res/img/ic-add-label.svg \
+  qt/freedomcoin/res/img/ic-pending.svg \
+  qt/freedomcoin/res/img/ic-check-theme-dark.svg \
+  qt/freedomcoin/res/img/ic-nav-receive-active.svg \
+  qt/freedomcoin/res/img/img-empty-dark-patriotnode.svg \
+  qt/freedomcoin/res/img/ic-add-liliac.svg \
+  qt/freedomcoin/res/img/ic-check-theme-light.svg \
+  qt/freedomcoin/res/img/ic-nav-receive-hover.svg \
+  qt/freedomcoin/res/img/img-empty-dark-multisend.svg \
+  qt/freedomcoin/res/img/ic-add-purple.svg \
+  qt/freedomcoin/res/img/ic-check-white.svg \
+  qt/freedomcoin/res/img/ic-nav-receive.svg \
+  qt/freedomcoin/res/img/img-empty-dark-peers.svg \
+  qt/freedomcoin/res/img/ic-add.svg \
+  qt/freedomcoin/res/img/ic-check.svg \
+  qt/freedomcoin/res/img/ic-nav-send-active.svg \
+  qt/freedomcoin/res/img/img-empty-dark-staking-off.svg \
+  qt/freedomcoin/res/img/img-empty-dark-staking-on.svg \
+  qt/freedomcoin/res/img/ic-address-book-grey.svg \
+  qt/freedomcoin/res/img/ic-chevron-left.svg \
+  qt/freedomcoin/res/img/ic-nav-send-hover.svg \
+  qt/freedomcoin/res/img/img-empty-dark-transactions.svg \
+  qt/freedomcoin/res/img/ic-address-book-white.svg \
+  qt/freedomcoin/res/img/ic-chevron-right.svg \
+  qt/freedomcoin/res/img/ic-chevron-right-liliac.svg \
+  qt/freedomcoin/res/img/ic-nav-send.svg \
+  qt/freedomcoin/res/img/img-empty-error.svg \
+  qt/freedomcoin/res/img/ic-address-book.svg \
+  qt/freedomcoin/res/img/ic-clear-liliac.svg \
+  qt/freedomcoin/res/img/ic-nav-settings-active.svg \
+  qt/freedomcoin/res/img/img-empty-patriotnode.svg \
+  qt/freedomcoin/res/img/ic-address-send-white.svg \
+  qt/freedomcoin/res/img/ic-clear-purple.svg \
+  qt/freedomcoin/res/img/ic-nav-settings-hover.svg \
+  qt/freedomcoin/res/img/img-empty-multisend.svg \
+  qt/freedomcoin/res/img/ic-address-send.svg \
+  qt/freedomcoin/res/img/ic-close-white.svg \
+  qt/freedomcoin/res/img/ic-nav-settings.svg \
+  qt/freedomcoin/res/img/img-empty-peers.svg \
+  qt/freedomcoin/res/img/img-empty-privacy.svg \
+  qt/freedomcoin/res/img/img-empty-privacy-dark.svg \
+  qt/freedomcoin/res/img/ic-arrow-drop-down-white.svg \
+  qt/freedomcoin/res/img/ic-close.svg \
+  qt/freedomcoin/res/img/ic-radio-liliac-on.svg \
+  qt/freedomcoin/res/img/img-empty-staking-off.svg \
+  qt/freedomcoin/res/img/ic-arrow-drop-down.svg \
+  qt/freedomcoin/res/img/ic-coin-piv.svg \
+  qt/freedomcoin/res/img/ic-receive-off.svg \
+  qt/freedomcoin/res/img/img-empty-staking-on.svg \
+  qt/freedomcoin/res/img/ic-arrow-drop-up-white.svg \
+  qt/freedomcoin/res/img/ic-coin-zpiv.png \
+  qt/freedomcoin/res/img/ic-receive-on.svg \
+  qt/freedomcoin/res/img/img-empty-transactions.svg \
+  qt/freedomcoin/res/img/ic-arrow-drop-up.svg \
+  qt/freedomcoin/res/img/ic-coin-zpiv.svg \
+  qt/freedomcoin/res/img/ic-received.svg \
+  qt/freedomcoin/res/img/img-logo-freedomcoin.png \
+  qt/freedomcoin/res/img/ic-arrow-drop-white-down.svg \
+  qt/freedomcoin/res/img/ic-combo-box.svg \
+  qt/freedomcoin/res/img/ic-send.svg \
+  qt/freedomcoin/res/img/img-logo-freedomcoin@2x.png \
+  qt/freedomcoin/res/img/ic-arrow-purple-down.svg \
+  qt/freedomcoin/res/img/ic-connect.svg \
+  qt/freedomcoin/res/img/ic-submenu-lock.svg \
+  qt/freedomcoin/res/img/img-logo-freedomcoin@3x.png \
+  qt/freedomcoin/res/img/img-logo-freedomcoin.svg \
+  qt/freedomcoin/res/img/ic-arrow-right-white.svg \
+  qt/freedomcoin/res/img/ic-arrow-left-white.svg \
+  qt/freedomcoin/res/img/ic-arrow-left.svg \
+  qt/freedomcoin/res/img/ic-copy-liliac.svg \
+  qt/freedomcoin/res/img/ic-submenu-staking.svg \
+  qt/freedomcoin/res/img/img-nav-logo-freedomcoin.png \
+  qt/freedomcoin/res/img/ic-arrow-right.svg \
+  qt/freedomcoin/res/img/ic-copy.svg \
+  qt/freedomcoin/res/img/ic-copy-big.svg \
+  qt/freedomcoin/res/img/ic-copy-big-white.svg \
+  qt/freedomcoin/res/img/ic-submenu-unlock.svg \
+  qt/freedomcoin/res/img/img-nav-logo.png \
+  qt/freedomcoin/res/img/ic-arrow-white-left.svg \
+  qt/freedomcoin/res/img/ic-exit.svg \
+  qt/freedomcoin/res/img/ic-switch-liliac-on.svg \
+  qt/freedomcoin/res/img/img-nav-logo.svg \
+  qt/freedomcoin/res/img/ic-arrow-white-right.svg \
+  qt/freedomcoin/res/img/ic-expand.svg \
+  qt/freedomcoin/res/img/ic-switch-off.svg \
+  qt/freedomcoin/res/img/img-qr-test-big.png \
+  qt/freedomcoin/res/img/ic-check-active.svg \
+  qt/freedomcoin/res/img/ic-folder.svg \
+  qt/freedomcoin/res/img/ic-switch-on.svg \
+  qt/freedomcoin/res/img/img-qr-test.png \
+  qt/freedomcoin/res/img/ic-check-box.svg \
+  qt/freedomcoin/res/img/ic-check-box-light.svg \
+  qt/freedomcoin/res/img/ic-check-box-dark-active.svg \
+  qt/freedomcoin/res/img/ic-check-box-indeterminate.svg \
+  qt/freedomcoin/res/img/ic-check-box-liliac-indeterminate.svg \
+  qt/freedomcoin/res/img/ic-label-liliac.svg \
+  qt/freedomcoin/res/img/ic-transaction-warning.svg \
+  qt/freedomcoin/res/img/ic-transaction-mint.svg \
+  qt/freedomcoin/res/img/ic-transaction-mint-inactive.svg \
+  qt/freedomcoin/res/img/ic-check-cold-staking.svg \
+  qt/freedomcoin/res/img/ic-check-cold-staking-off.svg \
+  qt/freedomcoin/res/img/ic-check-cold-staking-enabled.svg \
+  qt/freedomcoin/res/img/dark/ic-transaction-cs-contract.svg \
+  qt/freedomcoin/res/img/dark/ic-transaction-cs-contract-inactive.svg \
+  qt/freedomcoin/res/img/img-qr.svg \
+  qt/freedomcoin/res/img/ic-check-connect-off.svg \
+  qt/freedomcoin/res/img/ic-check-tor-off.svg \
+  qt/freedomcoin/res/img/ic-check-tor.svg \
+  qt/freedomcoin/res/img/ic-label.svg \
+  qt/freedomcoin/res/img/ic-transaction-received.svg \
+  qt/freedomcoin/res/img/dark/ic-transaction-received.svg \
+  qt/freedomcoin/res/img/dark/ic-transaction-warning.svg \
+  qt/freedomcoin/res/img/dark/ic-transaction-mint.svg \
+  qt/freedomcoin/res/img/dark/ic-transaction-mint-inactive.svg \
+  qt/freedomcoin/res/img/ic-transaction-received-inactive.svg \
+  qt/freedomcoin/res/img/dark/ic-transaction-received-inactive.svg \
+  qt/freedomcoin/res/img/img-welcome-step1.png \
+  qt/freedomcoin/res/img/ic-check-connect.svg \
+  qt/freedomcoin/res/img/ic-menu-hover.svg \
+  qt/freedomcoin/res/img/ic-transaction-sent.svg \
+  qt/freedomcoin/res/img/ic-transaction-sent-inactive.svg \
+  qt/freedomcoin/res/img/dark/ic-transaction-sent.svg \
+  qt/freedomcoin/res/img/dark/ic-transaction-sent-inactive.svg \
+  qt/freedomcoin/res/img/img-welcome-step2.png \
+  qt/freedomcoin/res/img/ic-check-dark.svg \
+  qt/freedomcoin/res/img/ic-mint.svg \
+  qt/freedomcoin/res/img/ic-transaction-staked.svg \
+  qt/freedomcoin/res/img/ic-transaction-staked-inactive.svg \
+  qt/freedomcoin/res/img/dark/ic-transaction-staked.svg \
+  qt/freedomcoin/res/img/dark/ic-transaction-staked-inactive.svg \
+  qt/freedomcoin/res/img/img-welcome-step3.png \
+  qt/freedomcoin/res/img/ic-check-liliac-on.svg \
+  qt/freedomcoin/res/img/ic-nav-address-active.svg \
+  qt/freedomcoin/res/img/ic-unlock-staking.svg \
+  qt/freedomcoin/res/img/img-welcome-step4.png \
+  qt/freedomcoin/res/img/ic-check-locked-off.svg \
+  qt/freedomcoin/res/img/ic-nav-address-hover.svg \
+  qt/freedomcoin/res/img/ic-update-liliac.svg \
+  qt/freedomcoin/res/img/ic-arrow-drop-down-purple.svg \
+  qt/freedomcoin/res/img/ic-arrow-drop-up-purple.svg \
+  qt/freedomcoin/res/img/ic-check-liliac-indeterminate.svg \
+  qt/freedomcoin/res/img/ic-check-box-liliac-indeterminate.svg \
+  qt/freedomcoin/res/img/ic-transaction-stake-delegated.svg \
+  qt/freedomcoin/res/img/ic-transaction-stake-delegated-inactive.svg \
+  qt/freedomcoin/res/img/ic-transaction-stake-hot.svg \
+  qt/freedomcoin/res/img/ic-transaction-stake-hot-inactive.svg \
+  qt/freedomcoin/res/img/dark/ic-transaction-stake-hot.svg \
+  qt/freedomcoin/res/img/dark/ic-transaction-stake-hot-inactive.svg \
+  qt/freedomcoin/res/img/dark/ic-transaction-stake-delegated.svg \
+  qt/freedomcoin/res/img/dark/ic-transaction-stake-delegated-inactive.svg \
+  qt/freedomcoin/res/img/ic-transaction-cs-contract.svg \
+  qt/freedomcoin/res/img/ic-transaction-cs-contract-inactive.svg \
+  qt/freedomcoin/res/img/ic-check-box-indeterminate.svg \
+  qt/freedomcoin/res/img/ic-information.svg \
+  qt/freedomcoin/res/img/ic-information-hover.svg \
+  qt/freedomcoin/res/img/ani-loading-dark.gif \
+  qt/freedomcoin/res/img/ani-loading.gif
+
+BITCOIN_QT_BASE_CPP = \
+  qt/bantablemodel.cpp \
+  qt/bitcoinaddressvalidator.cpp \
+  qt/freedomcoin/freedomcoingui.cpp \
+  qt/bitcoinunits.cpp \
+  qt/clientmodel.cpp \
+  qt/csvmodelwriter.cpp \
+  qt/guiutil.cpp \
+  qt/intro.cpp \
+  qt/networkstyle.cpp \
+  qt/notificator.cpp \
+  qt/optionsmodel.cpp \
+  qt/peertablemodel.cpp \
+  qt/platformstyle.cpp \
+  qt/qvalidatedlineedit.cpp \
+  qt/qvaluecombobox.cpp \
+  qt/rpcconsole.cpp \
+  qt/rpcexecutor.cpp \
+  qt/trafficgraphwidget.cpp \
+  qt/utilitydialog.cpp
+
+BITCOIN_QT_WINDOWS_CPP = qt/winshutdownmonitor.cpp
+
+BITCOIN_QT_WALLET_CPP = \
+  qt/addressbookpage.cpp \
+  qt/addresstablemodel.cpp \
+  qt/askpassphrasedialog.cpp \
+  qt/coincontroldialog.cpp \
+  qt/coincontroltreewidget.cpp \
+  qt/editaddressdialog.cpp \
+  qt/openuridialog.cpp \
+  qt/paymentserver.cpp \
+  qt/recentrequeststablemodel.cpp \
+  qt/transactionfilterproxy.cpp \
+  qt/transactionrecord.cpp \
+  qt/transactiontablemodel.cpp \
+  qt/walletmodel.cpp \
+  qt/walletmodeltransaction.cpp \
+  qt/freedomcoin/loadingdialog.cpp \
+  qt/freedomcoin/pwidget.cpp \
+  qt/freedomcoin/focuseddialog.cpp \
+  qt/freedomcoin/guitransactionsutils.cpp \
+  qt/freedomcoin/snackbar.cpp \
+  qt/freedomcoin/navmenuwidget.cpp \
+  qt/freedomcoin/lockunlock.cpp \
+  qt/freedomcoin/receivedialog.cpp \
+  qt/freedomcoin/furabstractlistitemdelegate.cpp \
+  qt/freedomcoin/txviewholder.cpp \
+  qt/freedomcoin/qtutils.cpp \
+  qt/freedomcoin/expandablebutton.cpp \
+  qt/freedomcoin/balancebubble.cpp \
+  qt/freedomcoin/topbar.cpp \
+  qt/freedomcoin/txrow.cpp \
+  qt/freedomcoin/addressholder.cpp \
+  qt/freedomcoin/addressfilterproxymodel.cpp \
+  qt/freedomcoin/dashboardwidget.cpp \
+  qt/freedomcoin/addresslabelrow.cpp \
+  qt/freedomcoin/contactdropdownrow.cpp \
+  qt/freedomcoin/contactsdropdown.cpp \
+  qt/freedomcoin/optionbutton.cpp \
+  qt/freedomcoin/mninfodialog.cpp \
+  qt/freedomcoin/coldstakingmodel.cpp \
+  qt/freedomcoin/mnmodel.cpp \
+  qt/freedomcoin/patriotnodewizarddialog.cpp \
+  qt/freedomcoin/mnrow.cpp \
+  qt/freedomcoin/patriotnodeswidget.cpp \
+  qt/freedomcoin/myaddressrow.cpp \
+  qt/freedomcoin/csrow.cpp \
+  qt/freedomcoin/sendchangeaddressdialog.cpp \
+  qt/freedomcoin/sendconfirmdialog.cpp \
+  qt/freedomcoin/sendcustomfeedialog.cpp \
+  qt/freedomcoin/sendmemodialog.cpp \
+  qt/freedomcoin/sendmultirow.cpp \
+  qt/freedomcoin/send.cpp \
+  qt/freedomcoin/addnewaddressdialog.cpp \
+  qt/freedomcoin/addnewcontactdialog.cpp \
+  qt/freedomcoin/requestdialog.cpp \
+  qt/freedomcoin/receivewidget.cpp \
+  qt/freedomcoin/tooltipmenu.cpp \
+  qt/freedomcoin/addresseswidget.cpp \
+  qt/freedomcoin/defaultdialog.cpp \
+  qt/freedomcoin/coldstakingwidget.cpp \
+  qt/freedomcoin/settings/settingsbackupwallet.cpp \
+  qt/freedomcoin/settings/settingsexportcsv.cpp \
+  qt/freedomcoin/settings/settingsbittoolwidget.cpp \
+  qt/freedomcoin/settings/settingsconsolewidget.cpp \
+  qt/freedomcoin/settings/settingsdisplayoptionswidget.cpp \
+  qt/freedomcoin/settings/settingsfaqwidget.cpp \
+  qt/freedomcoin/settings/settingsinformationwidget.cpp \
+  qt/freedomcoin/settings/settingsmainoptionswidget.cpp \
+  qt/freedomcoin/settings/settingssignmessagewidgets.cpp \
+  qt/freedomcoin/settings/settingswalletoptionswidget.cpp \
+  qt/freedomcoin/settings/settingswalletrepairwidget.cpp \
+  qt/freedomcoin/settings/settingswidget.cpp \
+  qt/freedomcoin/welcomecontentwidget.cpp \
+  qt/freedomcoin/splash.cpp
+
+
+BITCOIN_QT_CPP = $(BITCOIN_QT_BASE_CPP)
+if TARGET_WINDOWS
+BITCOIN_QT_CPP += $(BITCOIN_QT_WINDOWS_CPP)
+endif
+if ENABLE_WALLET
+BITCOIN_QT_CPP += $(BITCOIN_QT_WALLET_CPP)
+endif
+
+RES_IMAGES = \
+  qt/res/images/about.png \
+  qt/res/images/splash.png \
+  qt/res/images/splash_testnet.png \
+  qt/res/images/splash_regtest.png
+
+RES_CSS = \
+  qt/res/css/default.css \
+  qt/freedomcoin/res/css/style_dark.css \
+  qt/freedomcoin/res/css/style_light.css
+
+BITCOIN_RC = qt/res/freedomcoin-qt-res.rc
+
+BITCOIN_QT_INCLUDES = -I$(builddir)/qt -I$(srcdir)/qt -I$(srcdir)/qt/forms \
+  -I$(builddir)/qt/forms -DQT_NO_KEYWORDS
+
+qt_libbitcoinqt_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+  $(QT_INCLUDES) $(QT_DBUS_INCLUDES) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
+qt_libbitcoinqt_a_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+qt_libbitcoinqt_a_OBJCXXFLAGS = $(AM_OBJCXXFLAGS) $(QT_PIE_FLAGS)
+
+qt_libbitcoinqt_a_SOURCES = $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(QT_FORMS_UI) \
+  $(QT_QRC) $(QT_QRC_LOCALE) $(QT_TS) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS)
+
+nodist_qt_libbitcoinqt_a_SOURCES = $(QT_MOC_CPP) $(QT_MOC) $(QT_QRC_CPP) $(QT_QRC_LOCALE_CPP)
+
+# forms/foo.h -> forms/ui_foo.h
+QT_FORMS_H=$(join $(dir $(QT_FORMS_UI)),$(addprefix ui_, $(notdir $(QT_FORMS_UI:.ui=.h))))
+
+# Most files will depend on the forms and moc files as includes. Generate them
+# before anything else.
+$(QT_MOC): $(QT_FORMS_H)
+$(qt_libbitcoinqt_a_OBJECTS) $(qt_freedomcoin_qt_OBJECTS) : | $(QT_MOC)
+
+# freedomcoin-qt binary #
+qt_freedomcoin_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+  $(QT_INCLUDES) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
+qt_freedomcoin_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+
+qt_freedomcoin_qt_SOURCES = qt/freedomcoin.cpp
+if TARGET_DARWIN
+  qt_freedomcoin_qt_SOURCES += $(BITCOIN_MM)
+endif
+if TARGET_WINDOWS
+  qt_freedomcoin_qt_SOURCES += $(BITCOIN_RC)
+endif
+qt_freedomcoin_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
+if ENABLE_WALLET
+qt_freedomcoin_qt_LDADD += $(LIBBITCOIN_UTIL) $(LIBBITCOIN_WALLET)
+endif
+if ENABLE_ZMQ
+qt_freedomcoin_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
+endif
+qt_freedomcoin_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBBITCOIN_ZEROCOIN) $(LIBSAPLING) $(LIBRUSTZCASH) $(LIBZCASH_LIBS) $(LIBLEVELDB) $(LIBLEVELDB_SSE42) $(LIBMEMENV) \
+  $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(SVG_LIBS) $(CHARTS_LIBS) $(BDB_LIBS) $(MINIUPNPC_LIBS) $(NATPMP_LIBS) $(LIBSECP256K1) \
+  $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(BLS_LIBS)
+qt_freedomcoin_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+qt_freedomcoin_qt_LIBTOOLFLAGS = $(AM_LIBTOOLFLAGS) --tag CXX
+
+#locale/foo.ts -> locale/foo.qm
+QT_QM=$(QT_TS:.ts=.qm)
+
+SECONDARY: $(QT_QM)
+
+$(srcdir)/qt/freedomcoinstrings.cpp: $(libbitcoin_server_a_SOURCES) $(libbitcoin_wallet_a_SOURCES) $(libbitcoin_common_a_SOURCES) $(libbitcoin_zmq_a_SOURCES) $(libbitcoin_util_a_SOURCES)
+	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
+	$(AM_V_GEN) cd $(srcdir); XGETTEXT=$(XGETTEXT) $(PYTHON) ../share/qt/extract_strings_qt.py $^
+
+translate: $(srcdir)/qt/freedomcoinstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_BASE_CPP) qt/freedomcoin.cpp $(BITCOIN_QT_WINDOWS_CPP) $(BITCOIN_QT_WALLET_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
+	@test -n $(LUPDATE) || echo "lupdate is required for updating translations"
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts $(srcdir)/qt/locale/freedomcoin_en.ts
+
+$(QT_QRC_LOCALE_CPP): $(QT_QRC_LOCALE) $(QT_QM)
+	@test -f $(RCC)
+	@cp -f $< $(@D)/temp_$(<F)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name freedomcoin_locale $(@D)/temp_$(<F) | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+	@rm $(@D)/temp_$(<F)
+
+$(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS)
+	@test -f $(RCC)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name freedomcoin $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+CLEAN_QT = $(nodist_qt_libbitcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno qt/freedomcoin/*.gcda qt/freedomcoin/*.gcno qt/freedomcoin/settings/*.gcda qt/freedomcoin/settings/*.gcno qt/temp_freedomcoin_locale.qrc
+
+CLEANFILES += $(CLEAN_QT)
+
+freedomcoin_qt_clean: FORCE
+	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_freedomcoin_qt_OBJECTS) qt/freedomcoin-qt$(EXEEXT) $(LIBBITCOINQT)
+
+freedomcoin_qt : qt/freedomcoin-qt$(EXEEXT)
+
+ui_%.h: %.ui
+	@test -f $(UIC)
+	@$(MKDIR_P) $(@D)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(UIC) -o $@ $< || (echo "Error creating $@"; false)
+
+%.moc: %.cpp
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(MOC) $(DEFAULT_INCLUDES) $(QT_INCLUDES) $(MOC_DEFS) $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+moc_%.cpp: %.h
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(MOC) $(DEFAULT_INCLUDES) $(QT_INCLUDES) $(MOC_DEFS) $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+%.qm: %.ts
+	@test -f $(LRELEASE)
+	@$(MKDIR_P) $(@D)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LRELEASE) -silent $< -qm $@

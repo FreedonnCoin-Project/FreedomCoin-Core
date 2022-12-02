@@ -1,0 +1,8 @@
+/usr/bin/freedomcoin-cli		--	gen_context(system_u:object_r:freedomcoin_exec_t,s0)
+/usr/sbin/freedomcoind		--	gen_context(system_u:object_r:freedomcoin_exec_t,s0)
+/usr/lib(64)?/freedomcoin/freedomcoind		--	gen_context(system_u:object_r:freedomcoin_exec_t,s0)
+
+/etc/freedomcoin(/.*)?		gen_context(system_u:object_r:freedomcoin_conf_t,s0)
+/var/lib/freedomcoin(/.*)?		gen_context(system_u:object_r:freedomcoin_var_lib_t,s0)
+
+(/var)?/run/freedomcoind(/.*)?   gen_context(system_u:object_r:freedomcoin_var_run_t,s0)

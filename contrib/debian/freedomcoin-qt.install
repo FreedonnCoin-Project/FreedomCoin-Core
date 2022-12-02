@@ -1,0 +1,6 @@
+usr/local/bin/freedomcoin-qt usr/bin
+share/pixmaps/freedomcoin32.xpm usr/share/pixmaps
+share/pixmaps/freedomcoin16.xpm usr/share/pixmaps
+share/pixmaps/freedomcoin128.png usr/share/pixmaps
+debian/freedomcoin-qt.desktop usr/share/applications
+debian/freedomcoin-qt.protocol usr/share/kde4/services/
